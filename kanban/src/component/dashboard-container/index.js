@@ -52,4 +52,8 @@ const mapDispatchToProps = (dispatch, getState) => {
   }
 }
 
+let bindToStore = connect(mapStateToProps, mapDispatchToProps)
+
+DashboardContainer = bindToStore(DashboardContainer)
+
 export default connect( mapStateToProps, mapDispatchToProps)(DashboardContainer)
