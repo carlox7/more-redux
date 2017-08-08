@@ -10,7 +10,7 @@ const UglifyPlugin = require('uglifyjs-webpack-plugin')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 
 let plugins = [
-  new EnvironmentPlugin(['NODE_ENV']),
+  new EnvironmentPlugin({NODE_ENV: 'development', DEBUG: false}),
   new ExtractPlugin('bundle-[hash].css'),
   new HTMLPlugin({template: `${__dirname}/src/index.html`}),
   new DefinePlugin({
@@ -80,8 +80,3 @@ module.exports = {
     ],
   },
 }
-
-
-
-
-

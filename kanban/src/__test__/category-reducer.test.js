@@ -18,7 +18,11 @@ describe('testing category reducer', () => {
   test('CATEGORY_CREATE should append to the array', () => {
     let actionOne = {
       type: 'CATEGORY_CREATE',
-      payload: 'hello world',
+      payload: {
+        id: '123',
+        title: 'cool beans',
+        timestamp: new Date(),
+      },
     }
 
     let state = categoryReducer([], actionOne)
@@ -27,7 +31,11 @@ describe('testing category reducer', () => {
 
     let actionTwo = {
       type: 'CATEGORY_CREATE',
-      payload: 'yolo',
+      payload: {
+        id: '123',
+        title: 'wuttt',
+        timestamp: new Date(),
+      },
     }
 
     state = categoryReducer(state, actionTwo)
@@ -38,38 +46,33 @@ describe('testing category reducer', () => {
 
   test('CATEGORY_DELETE should append to the array', () => {
     let mockState = [
-      {id: 'abc', title: 'magikarp'},
-      {id: '123', title: 'pikachu'},
-      {id: 'xyz', title: 'bulbasaur'},
-      {id: '107', title: 'moltres'},
+      {id: 'abc', title: 'magikarp', timestamp: new Date()},
+      {id: '123', title: 'pikachu', timestamp: new Date()},
+      {id: 'xyz', title: 'bulbasaur', timestamp: new Date()},
+      {id: '107', title: 'moltres', timestamp: new Date()},
     ]
 
     let actionOne = {
       type: 'CATEGORY_DELETE',
-      payload: mockState[1],
+      payload: {id: 'xyz', title: 'bulbasaur', timestamp: new Date()},
     }
 
     let state = categoryReducer(mockState, actionOne)
     expect(state.length).toBe(3)
-    expect(state).toEqual(mockState.filter(item => item.id != '123'))
+    expect(state).toEqual(mockState.filter(item => item.id != 'xyz'))
   })
 
-  test('CATEGORY_UPDATE should update a category in the array', () => {
+  test('CATEGORY_UPDATE should throw error', () => {
     let mockState = [
-      {id: 'abc', title: 'magikarp'},
-      {id: '123', title: 'pikachu'},
-      {id: 'zyx', title: 'bulbasaur'},
-      {id: '107', title: 'moltres'},
+      {id: 'abc', title: 'magikarp', timestamp: new Date()},
+
     ]
     let actionOne = {
       type: 'CATEGORY_UPDATE',
-      payload: {id: 'zyx', title: 'hax'},
+      payload: {id: 'abc', timestamp: new Date()},
     }
 
-    let state = categoryReducer(mockState, actionOne)
-
-    expect(state.length).toBe(4)
-    expect(state).toEqual(mockState.map(item =>
-      item.id == 'zyx' ? actionOne.payload : item))
+    expect(() => categoryReducer(mockState, actionOne))
+      .toThrow('VALIDATION ERROR: category must have id, title, and timestamp')
   })
 })

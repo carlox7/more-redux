@@ -22,7 +22,7 @@ class DashboardContainer extends React.Component {
         />
 
         {this.props.categories.map((item) =>
-          <CategoryItem category={item} />
+          <CategoryItem key={item.id} category={item} />
         )}
       </main>
     )
@@ -31,7 +31,7 @@ class DashboardContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state,
+    categories: state.categories,
   }
 }
 
