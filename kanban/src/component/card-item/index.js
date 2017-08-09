@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import Draggable from '../draggable'
 import CardForm from '../card-form'
 import {cardUpdate, cardDelete} from '../../action/card-actions.js'
 
@@ -9,13 +10,16 @@ class CardItem extends React.Component {
     let {card, cardDelete, cardUpdate} = this.props
     return(
       <li className='card-item'>
-        <p>{card.content}</p>
-        <button onClick={() => cardDelete(card)}> delete </button>
-        <CardForm
-          card={card}
-          buttonText='update card'
-          onComplete={cardUpdate}
-        />
+        <Draggable dataTransferItem={card}>
+
+          <p>{card.content}</p>
+          <button onClick={() => cardDelete(card)}> delete </button>
+          <CardForm
+            card={card}
+            buttonText='update card'
+            onComplete={cardUpdate}
+          />
+        </Draggable>
       </li>
     )
   }

@@ -1,3 +1,4 @@
+import './dashboard-container.scss'
 import React from 'react'
 import {connect} from 'react-redux'
 
@@ -12,6 +13,13 @@ import CategoryForm from '../category-form'
 import CategoryItem from '../category-item'
 
 class DashboardContainer extends React.Component {
+  componentDidMount(){
+    this.props.categoryCreate({title: 'ready'})
+    this.props.categoryCreate({title: 'set'})
+    this.props.categoryCreate({title: 'go'})
+    this.props.categoryCreate({title: 'done'})
+  }
+
   render(){
     return (
       <main className='dashboard-container'>
