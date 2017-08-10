@@ -4,13 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "jest": {
-    "globals": {
-      "__DEBUG__": false,
-      "process.env": {
-        "NODE_ENV": "testing"
+      "moduleNameMapper": {
+        "\\.(scss|mp3|mov|mp4|wat|jpg|jpeg|gif|png|svg|tiff)$": "<rootDir>/src/__test__/lib/webpack-asset-faker.js"
+      },
+      "globals": {
+        "__DEBUG__": false
       }
-    }
-  },
+    },
   "scripts": {
     "test": "jest --coverage",
     "test-watch": "jest --watchAll",

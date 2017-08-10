@@ -14,9 +14,16 @@ describe('util', () => {
     test('log should invoke console.log when __DEBUG__ is true', () => {
       global.__DEBUG__ = true
       const spy = jest.spyOn(console, 'log')
-      util.log('cool')
-      expect(spy).toHaveBeenCalled()
+      util.log('cool', 'beans')
+      expect(spy).toHaveBeenCalledWith('cool', 'beans')
+      spy.mockClear()
     })
-
+    test('log should not invoke console.log when __DEBUG__ is false', () => {
+      global.__DEBUG__=false
+      const spy = jest.spyOn(console, 'log')
+      util.log('cool', 'beans')
+      expect(spy).not.toHaveBeenCalled()
+      spy.mockClear()
+    })
   })
 })
